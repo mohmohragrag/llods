@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>تحليل أمان فريم — مع Load Combinations و P-M</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <h1>تحليل أمان فريم — أعمدة ورافترين (Load Comb., K, P–M)</h1>
+
+    <div class="card">
+      <h2>بيانات عامة</h2>
+      <div class="grid">
+        <label>ارتفاع الأعمدة H (مم)<input id="colHeight" type="number" value="15000"></label>
+        <label>عرض الإطار B (مم)<input id="frameWidth" type="number" value="50000"></label>
+        <label>الحمل الميت على الرافتر (kg/m)<input id="deadLoad" type="number" value="10"></label>
+        <label>الحمل الحي على الرافتر (kg/m)<input id="liveLoad" type="number" value="4"></label>
+        <label>حمل الرياح لكل عمود (kg)<input id="windPerCol" type="number" value="9600"></label>
+        <label>fy (MPa)<input id="fy" type="number" value="325"></label>
+        <label>E (GPa)<input id="E" type="number" value="210"></label>
+        <label>عامل طول فعال K (عمود)<input id="Kfactor" type="number" step="0.1" value="1.0"></label>
+      </div>
+    </div>
+
+    <div class="layout">
+      <div class="card">
+        <h3>العمود الأيسر (H/I)</h3>
+        <div class="grid">
+          <label>h (ويب ارتفاع, مم)<input id="c1_h" type="number" value="200"></label>
+          <label>t<sub>w</sub> (ويب سمك, مم)<input id="c1_tw" type="number" value="8"></label>
+          <label>b<sub>f</sub> (فلانشة عرض, مم)<input id="c1_bf" type="number" value="150"></label>
+          <label>t<sub>f</sub> (فلانشة سمك, مم)<input id="c1_tf" type="number" value="12"></label>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>العمود الأيمن (H/I)</h3>
+        <div class="grid">
+          <label>h (ويب ارتفاع, مم)<input id="c2_h" type="number" value="200"></label>
+          <label>t<sub>w</sub> (ويب سمك, مم)<input id="c2_tw" type="number" value="8"></label>
+          <label>b<sub>f</sub> (فلانشة عرض, مم)<input id="c2_bf" type="number" value="150"></label>
+          <label>t<sub>f</sub> (فلانشة سمك, مم)<input id="c2_tf" type="number" value="12"></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout">
+      <div class="card">
+        <h3>الرافتر الأيسر (H/I)</h3>
+        <div class="grid">
+          <label>h (ويب ارتفاع, مم)<input id="b1_h" type="number" value="200"></label>
+          <label>t<sub>w</sub> (ويب سمك, مم)<input id="b1_tw" type="number" value="8"></label>
+          <label>b<sub>f</sub> (فلانشة عرض, مم)<input id="b1_bf" type="number" value="150"></label>
+          <label>t<sub>f</sub> (فلانشة سمك, مم)<input id="b1_tf" type="number" value="12"></label>
+          <label>نوع الوصلة عند العمود
+            <select id="b1_conn"><option value="hinge">مفصلية (Hinged)</option><option value="moment">مقاومة عزوم (Moment)</option></select>
+          </label>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>الرافتر الأيمن (H/I)</h3>
+        <div class="grid">
+          <label>h (ويب ارتفاع, مم)<input id="b2_h" type="number" value="200"></label>
+          <label>t<sub>w</sub> (ويب سمك, مم)<input id="b2_tw" type="number" value="8"></label>
+          <label>b<sub>f</sub> (فلانشة عرض, مم)<input id="b2_bf" type="number" value="150"></label>
+          <label>t<sub>f</sub> (فلانشة سمك, مم)<input id="b2_tf" type="number" value="12"></label>
+          <label>نوع الوصلة عند العمود
+            <select id="b2_conn"><option value="hinge">مفصلية (Hinged)</option><option value="moment">مقاومة عزوم (Moment)</option></select>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <button id="calcBtn">احسب الأمان</button>
+
+    <div id="results" class="card"></div>
+
+    <div class="canvas">
+      <svg id="frameSVG" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet"></svg>
+      <div id="tooltip" class="tooltip" style="display:none"></div>
+    </div>
+
+    <p class="note">التحاليل تم تبسيطها للتعليم والقراءة السريعة — للقرارات الإنشائية النهائية استعمل FEM وبرنامج تصميم معتمد.</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
